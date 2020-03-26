@@ -10,6 +10,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -39,8 +40,9 @@ public class Cliente {
                             frame.getTxtAreaChat().append(serverInput);
                         }
                     }
-                } catch (Exception ex) {
-                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (Exception ex) {
+                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex); 
                 }
             }
         }.start();

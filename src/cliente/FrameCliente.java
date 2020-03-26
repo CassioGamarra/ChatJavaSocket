@@ -58,12 +58,12 @@ public class FrameCliente extends javax.swing.JFrame {
         fieldPorta.setForeground(Color.gray);
         fieldPorta.setText("Digite o número da porta...");
         fieldPorta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Porta:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-        fieldPorta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fieldPortaMouseClicked(evt);
+        fieldPorta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fieldPortaFocusGained(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                fieldPortaMouseExited(evt);
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldPortaFocusLost(evt);
             }
         });
 
@@ -71,12 +71,12 @@ public class FrameCliente extends javax.swing.JFrame {
         fieldEndereco.setForeground(Color.gray);
         fieldEndereco.setText("Digite o endereço...");
         fieldEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Endereço:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-        fieldEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fieldEnderecoMouseClicked(evt);
+        fieldEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fieldEnderecoFocusGained(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                fieldEnderecoMouseExited(evt);
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldEnderecoFocusLost(evt);
             }
         });
 
@@ -91,12 +91,10 @@ public class FrameCliente extends javax.swing.JFrame {
         txtAreaMsg.setRows(5);
         txtAreaMsg.setText("Enviar mensagem...");
         txtAreaMsg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENSAGEM:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
-        txtAreaMsg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtAreaMsgMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtAreaMsgMouseExited(evt);
+        txtAreaMsg.setEnabled(false);
+        txtAreaMsg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAreaMsgFocusGained(evt);
             }
         });
         txtAreaMsg.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -108,9 +106,10 @@ public class FrameCliente extends javax.swing.JFrame {
 
         btnEnviar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnEnviar.setText("ENVIAR");
-        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarActionPerformed(evt);
+        btnEnviar.setEnabled(false);
+        btnEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEnviarMouseClicked(evt);
             }
         });
 
@@ -118,19 +117,19 @@ public class FrameCliente extends javax.swing.JFrame {
         fieldApelido.setForeground(Color.gray);
         fieldApelido.setText("Digite seu apelido...");
         fieldApelido.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Apelido:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-        fieldApelido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fieldApelidoMouseClicked(evt);
+        fieldApelido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fieldApelidoFocusGained(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                fieldApelidoMouseExited(evt);
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldApelidoFocusLost(evt);
             }
         });
 
         btnConectar.setText("CONECTAR");
-        btnConectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConectarActionPerformed(evt);
+        btnConectar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConectarMouseClicked(evt);
             }
         });
 
@@ -214,97 +213,136 @@ public class FrameCliente extends javax.swing.JFrame {
     public JTextArea getTxtAreaMsg() {
         return txtAreaMsg;
     }
-//Eventos
-    private void fieldPortaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldPortaMouseClicked
+    private void txtAreaMsgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaMsgKeyPressed
         // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enviar();
+        }
+    }//GEN-LAST:event_txtAreaMsgKeyPressed
+
+    private void fieldEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldEnderecoFocusGained
+        // TODO add your handling code here:
+        fieldEnderecoIn();
+    }//GEN-LAST:event_fieldEnderecoFocusGained
+
+    private void fieldEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldEnderecoFocusLost
+        // TODO add your handling code here:
+        fieldEnderecoOut();
+    }//GEN-LAST:event_fieldEnderecoFocusLost
+
+    private void fieldPortaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldPortaFocusGained
+        // TODO add your handling code here:
+        fieldPortaIn();
+    }//GEN-LAST:event_fieldPortaFocusGained
+
+    private void fieldPortaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldPortaFocusLost
+        // TODO add your handling code here:
+        fieldPortaOut();
+    }//GEN-LAST:event_fieldPortaFocusLost
+
+    private void fieldApelidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldApelidoFocusGained
+        // TODO add your handling code here:
+        fieldApelidoIn();
+    }//GEN-LAST:event_fieldApelidoFocusGained
+
+    private void fieldApelidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldApelidoFocusLost
+        // TODO add your handling code here:
+        fieldApelidoOut();
+    }//GEN-LAST:event_fieldApelidoFocusLost
+
+    private void txtAreaMsgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaMsgFocusGained
+        // TODO add your handling code here:
+        txtAreaMsgIn();
+    }//GEN-LAST:event_txtAreaMsgFocusGained
+
+    private void btnEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnviarMouseClicked
+        // TODO add your handling code here:
+        enviar();
+    }//GEN-LAST:event_btnEnviarMouseClicked
+
+    private void btnConectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConectarMouseClicked
+        // TODO add your handling code here:
+        if(btnConectar.getText().equals("DESCONECTAR")){
+            desconectar();
+        }
+        else{
+            conectar();
+        }
+    }//GEN-LAST:event_btnConectarMouseClicked
+    
+    //Métodos referente aos eventos
+    private void conectar(){
+        if(fieldPorta.getText().equals("Digite o número da porta...")){
+            JOptionPane.showMessageDialog(null, "Digite o número da porta...");
+        
+        }
+        else if(fieldEndereco.getText().equals("Digite o endereço...")){
+            JOptionPane.showMessageDialog(null, "Digite o endereço...");
+        }
+        else if(fieldApelido.getText().equals("Digite seu apelido...")){
+            JOptionPane.showMessageDialog(null, "Digite seu apelido...");
+        }
+        
+        else{
+            try {
+                cliente.cliente(this);
+                txtAreaMsg.setEnabled(true);
+                btnEnviar.setEnabled(true);
+                fieldPorta.setEnabled(false);
+                fieldEndereco.setEnabled(false);
+                fieldApelido.setEnabled(false);
+                btnConectar.setText("DESCONECTAR");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Não foi possível conectar!");
+            }
+        }
+    }
+    private void desconectar(){
+        fieldPorta.setEnabled(true);
+        fieldEndereco.setEnabled(true);
+        fieldApelido.setEnabled(true);
+        btnConectar.setText("CONECTAR");
+    }
+    private void enviar(){
+        cliente.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
+        txtAreaMsg.setText("");
+    }
+    private void fieldPortaIn(){
         fieldPorta.setForeground(Color.black);
         fieldPorta.setText("");
-    }//GEN-LAST:event_fieldPortaMouseClicked
-
-    private void fieldPortaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldPortaMouseExited
-        // TODO add your handling code here:
+    }
+    private void fieldPortaOut(){
         if(fieldPorta.getText().equals("")){
             fieldPorta.setForeground(Color.gray);
             fieldPorta.setText("Digite o número da porta...");
         }
-    }//GEN-LAST:event_fieldPortaMouseExited
-
-    private void fieldEnderecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldEnderecoMouseClicked
-        // TODO add your handling code here:
-        fieldEndereco.setForeground(Color.black);
+    }
+    private void fieldEnderecoIn(){
         fieldEndereco.setText("");
-    }//GEN-LAST:event_fieldEnderecoMouseClicked
-
-    private void fieldEnderecoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldEnderecoMouseExited
-        // TODO add your handling code here:
+        fieldEndereco.setForeground(Color.black);
+    }
+    private void fieldEnderecoOut(){
         if(fieldEndereco.getText().equals("")){
             fieldEndereco.setForeground(Color.gray);
-            fieldEndereco.setText("Digite o endereço...");
+            fieldEndereco.setText("Digite o endereco...");
         }
-    }//GEN-LAST:event_fieldEnderecoMouseExited
-
-    private void txtAreaMsgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAreaMsgMouseClicked
-        // TODO add your handling code here:
-        txtAreaMsg.setForeground(Color.black);
-        txtAreaMsg.setText("");
-    }//GEN-LAST:event_txtAreaMsgMouseClicked
-
-    private void txtAreaMsgMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAreaMsgMouseExited
-        // TODO add your handling code here:
-        if(txtAreaMsg.getText().equals("")){
-            txtAreaMsg.setForeground(Color.gray);
-            txtAreaMsg.setText("Enviar mensagem...");
-        }
-    }//GEN-LAST:event_txtAreaMsgMouseExited
-
-    private void fieldApelidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldApelidoMouseClicked
-        // TODO add your handling code here:
+    }
+    private void fieldApelidoIn(){
         fieldApelido.setForeground(Color.black);
         fieldApelido.setText("");
-    }//GEN-LAST:event_fieldApelidoMouseClicked
-
-    private void fieldApelidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldApelidoMouseExited
-        // TODO add your handling code here:
+    }
+    private void fieldApelidoOut(){
         if(fieldApelido.getText().equals("")){
             fieldApelido.setForeground(Color.gray);
             fieldApelido.setText("Digite seu apelido...");
         }
-    }//GEN-LAST:event_fieldApelidoMouseExited
+    }
+    private void txtAreaMsgIn(){
+        txtAreaMsg.setForeground(Color.black);
+        txtAreaMsg.setText("");
+    }
 
-    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
-        // TODO add your handling code here:
-        if(fieldEndereco.getText().equals("Digite o endereço...")){
-            JOptionPane.showMessageDialog(null, "Digite o endereço...");
-        }
-        if(fieldPorta.getText().equals("Digite o número da porta...")){
-            JOptionPane.showMessageDialog(null, "Digite o número da porta...");
-        }
-        if(fieldApelido.getText().equals("Digite seu apelido...")){
-            JOptionPane.showMessageDialog(null, "Digite seu apelido...");
-        }
-        else{
-            try {
-                cliente.cliente(this);
-            } catch (IOException ex) {
-                Logger.getLogger(FrameCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_btnConectarActionPerformed
-
-    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        // TODO add your handling code here:
-        cliente.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
-        txtAreaMsg.setForeground(Color.gray);
-        txtAreaMsg.setText("Enviar mensagem...");
-    }//GEN-LAST:event_btnEnviarActionPerformed
-
-    private void txtAreaMsgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaMsgKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            btnEnviar.doClick();
-        }
-    }//GEN-LAST:event_txtAreaMsgKeyPressed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -316,7 +354,7 @@ public class FrameCliente extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

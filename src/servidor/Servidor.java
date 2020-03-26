@@ -24,7 +24,6 @@ public class Servidor {
         ServerSocket serverSocket = new ServerSocket(numeroPorta);
         Socket clientSocket = serverSocket.accept();
         enviar = new PrintWriter(clientSocket.getOutputStream(), true);
-
         Scanner receber = new Scanner(clientSocket.getInputStream());
         
         new Thread() {
@@ -41,7 +40,6 @@ public class Servidor {
                 }catch(Exception ex){
                     Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
             }
         }.start();
         

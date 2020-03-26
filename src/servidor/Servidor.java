@@ -54,4 +54,8 @@ public class Servidor {
             frame.getTxtAreaChat().append(serverInput+"\n");
         }
     }
+    
+    public void parar(){
+        
+    }
 }

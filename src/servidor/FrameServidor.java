@@ -263,7 +263,7 @@ public class FrameServidor extends javax.swing.JFrame {
             fieldApelido.setEnabled(true);
             fieldPorta.setEnabled(true);
             executaServidor.setText("EXECUTAR SERVIDOR");
-        }catch(IOException ex){
+        }catch(Exception ex){
             Logger.getLogger(FrameServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

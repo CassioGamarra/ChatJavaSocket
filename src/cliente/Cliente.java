@@ -7,6 +7,7 @@ package cliente;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,21 +24,22 @@ public class Cliente {
         String endereco = frame.getFieldEndereco().getText();
         int numeroPorta = Integer.parseInt(frame.getFieldPorta().getText());
         
-        Socket echoSocket = new Socket(endereco, numeroPorta);
-        enviar= new PrintWriter(echoSocket.getOutputStream(), true);
-        BufferedReader receber = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+        Socket servidorSocket = new Socket(endereco, numeroPorta);
+        enviar= new PrintWriter(servidorSocket.getOutputStream(), true);
+        
+        Scanner receber = new Scanner(servidorSocket.getInputStream());
         
         new Thread(){
             public void run(){
                 String serverInput;
                 try {
-                    while(receber.readLine() != null){
-                        if((serverInput = receber.readLine()) != null){
+                    while(receber.hasNextLine()){
+                        if((serverInput = receber.nextLine()) != null){
                             serverInput = serverInput +"\n";
                             frame.getTxtAreaChat().append(serverInput);
                         }
                     }
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

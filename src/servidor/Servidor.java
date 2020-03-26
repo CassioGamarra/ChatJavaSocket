@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package servidor;
+import cliente.Cliente;
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -22,23 +24,24 @@ public class Servidor {
         ServerSocket serverSocket = new ServerSocket(numeroPorta);
         Socket clientSocket = serverSocket.accept();
         enviar = new PrintWriter(clientSocket.getOutputStream(), true);
-        BufferedReader receber = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+        Scanner receber = new Scanner(clientSocket.getInputStream());
         
         new Thread() {
             @Override
             public void run() {
                 String userInput;
-                try {
-                    while(receber.readLine() !=  null){
-                        if((userInput = receber.readLine()) != null){
+                try{
+                    while(receber.hasNextLine()){
+                        if((userInput = receber.nextLine()) != null){
                             userInput = userInput +"\n";
                             frame.getTxtAreaChat().append(userInput);
                         }
-                    } 
-                } catch (IOException ex) {
-                    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }catch(Exception ex){
+                    Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+               
             }
         }.start();
         

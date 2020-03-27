@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 /**
  *
- * @author Jhonatan
+ * @author Cássio e Frederico
  */
 public class FrameCliente extends javax.swing.JFrame {
 

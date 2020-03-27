@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Jhonatan
+ * @author Cássio e Frederico
  */
 public class FrameServidor extends javax.swing.JFrame {
 
@@ -202,7 +202,8 @@ public class FrameServidor extends javax.swing.JFrame {
     public JTextArea getTxtAreaMsg() {
         return txtAreaMsg;
     }
-//
+    
+    //Métodos
     
     private void enviar(){
         if(!txtAreaMsg.getText().contains("\n")){

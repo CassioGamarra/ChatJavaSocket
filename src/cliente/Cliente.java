@@ -10,12 +10,10 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 
 /**
  *
- * @author Jhonatan
+ * @author Cássio e Frederico
  */
 public class Cliente {
     public Cliente(){}

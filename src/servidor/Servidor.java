@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
- * @author Jhonatan
+ * @author Cássio e Frederico
  */
 public class Servidor {
     public Servidor(){}

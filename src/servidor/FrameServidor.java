@@ -87,16 +87,20 @@ public class FrameServidor extends javax.swing.JFrame {
 
         txtAreaChat.setEditable(false);
         txtAreaChat.setColumns(20);
+        txtAreaChat.setLineWrap(true);
         txtAreaChat.setRows(5);
+        txtAreaChat.setWrapStyleWord(true);
         txtAreaChat.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "CHAT:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jScrollPane1.setViewportView(txtAreaChat);
 
-        txtAreaMsg.setEditable(false);
         txtAreaMsg.setColumns(20);
         txtAreaMsg.setForeground(Color.gray);
+        txtAreaMsg.setLineWrap(true);
         txtAreaMsg.setRows(5);
         txtAreaMsg.setText("Enviar mensagem...");
         txtAreaMsg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENSAGEM:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        txtAreaMsg.setCaretPosition(0);
+        txtAreaMsg.setEnabled(false);
         txtAreaMsg.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtAreaMsgFocusGained(evt);
@@ -201,8 +205,11 @@ public class FrameServidor extends javax.swing.JFrame {
 //
     
     private void enviar(){
-        server.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
-        txtAreaMsg.setText("");
+        if(!txtAreaMsg.getText().contains("\n")){
+            server.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
+            txtAreaMsg.getDocument().putProperty("filterNewlines", Boolean.TRUE);
+            txtAreaMsg.setText("");
+        }
     }
     
     private void txtAreaMsgIn(){
@@ -245,39 +252,19 @@ public class FrameServidor extends javax.swing.JFrame {
             try {
                 server.servidor(this);
                 btnEnviar.setEnabled(true);
-                txtAreaChat.setEnabled(true);
+                txtAreaMsg.setEnabled(true);
                 fieldApelido.setEnabled(false);
                 fieldPorta.setEnabled(false);
-                executaServidor.setText("PARAR SERVIDOR");
             } catch (IOException ex) {
                 Logger.getLogger(FrameServidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    private void pararServidor(){
-        try{
-            server = new Servidor();
-            btnEnviar.setEnabled(false);
-            txtAreaChat.setEnabled(false);
-            fieldApelido.setEnabled(true);
-            fieldPorta.setEnabled(true);
-            executaServidor.setText("EXECUTAR SERVIDOR");
-        }catch(Exception ex){
-            Logger.getLogger(FrameServidor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     private void txtAreaMsgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaMsgFocusGained
         txtAreaMsgIn();
     }//GEN-LAST:event_txtAreaMsgFocusGained
-
-    private void txtAreaMsgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaMsgKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            enviar();
-        }
-    }//GEN-LAST:event_txtAreaMsgKeyPressed
 
     private void executaServidorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_executaServidorMouseClicked
         executarServidor();
@@ -303,6 +290,13 @@ public class FrameServidor extends javax.swing.JFrame {
         enviar();
     }//GEN-LAST:event_btnEnviarMouseClicked
 
+    private void txtAreaMsgKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaMsgKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enviar();
+        }
+    }//GEN-LAST:event_txtAreaMsgKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -314,7 +308,7 @@ public class FrameServidor extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

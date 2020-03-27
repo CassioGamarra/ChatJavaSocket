@@ -46,6 +46,8 @@ public class FrameCliente extends javax.swing.JFrame {
         btnConectar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CHAT - CLIENTE");
+        setResizable(false);
 
         panelCliente.setBackground(new java.awt.Color(255, 255, 255));
         panelCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "CHAT - CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -80,19 +82,28 @@ public class FrameCliente extends javax.swing.JFrame {
 
         txtAreaChat.setEditable(false);
         txtAreaChat.setColumns(20);
+        txtAreaChat.setLineWrap(true);
         txtAreaChat.setRows(5);
+        txtAreaChat.setWrapStyleWord(true);
         txtAreaChat.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "CHAT:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jScrollPane1.setViewportView(txtAreaChat);
 
         txtAreaMsg.setColumns(20);
         txtAreaMsg.setForeground(Color.gray);
+        txtAreaMsg.setLineWrap(true);
         txtAreaMsg.setRows(5);
         txtAreaMsg.setText("Enviar mensagem...");
         txtAreaMsg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENSAGEM:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        txtAreaMsg.setCaretPosition(0);
         txtAreaMsg.setEnabled(false);
         txtAreaMsg.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtAreaMsgFocusGained(evt);
+            }
+        });
+        txtAreaMsg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAreaMsgMouseClicked(evt);
             }
         });
         txtAreaMsg.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -267,6 +278,11 @@ public class FrameCliente extends javax.swing.JFrame {
             conectar();
         }
     }//GEN-LAST:event_btnConectarMouseClicked
+
+    private void txtAreaMsgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAreaMsgMouseClicked
+        // TODO add your handling code here:
+        System.out.println(txtAreaMsg.getCaretPosition());
+    }//GEN-LAST:event_txtAreaMsgMouseClicked
     
     //Métodos referente aos eventos
     private void conectar(){
@@ -302,8 +318,11 @@ public class FrameCliente extends javax.swing.JFrame {
         btnConectar.setText("CONECTAR");
     }
     private void enviar(){
-        cliente.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
-        txtAreaMsg.setText("");
+        if(!txtAreaMsg.getText().contains("\n")){
+            cliente.enviar(fieldApelido.getText(), txtAreaMsg.getText(), this);
+            txtAreaMsg.getDocument().putProperty("filterNewlines", Boolean.TRUE);
+            txtAreaMsg.setText("");
+        }
     }
     private void fieldPortaIn(){
         fieldPorta.setForeground(Color.black);
@@ -371,8 +390,8 @@ public class FrameCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new FrameCliente().setVisible(true);
                 FrameCliente frmCliente = new FrameCliente();
+                frmCliente.setLocationRelativeTo(null);
                 frmCliente.setVisible(true);
             }
         });

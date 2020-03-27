@@ -18,15 +18,17 @@ public class Servidor {
     public Servidor(){}
     
     PrintWriter enviar;
+    Thread thServidor = new Thread();
+    ServerSocket serverSocket;
     public void servidor(FrameServidor frame) throws IOException{
         int numeroPorta = Integer.parseInt(frame.getFieldPorta().getText());
         System.out.println("RODANDO....");
-        ServerSocket serverSocket = new ServerSocket(numeroPorta);
+        serverSocket = new ServerSocket(numeroPorta);
         Socket clientSocket = serverSocket.accept();
         enviar = new PrintWriter(clientSocket.getOutputStream(), true);
         Scanner receber = new Scanner(clientSocket.getInputStream());
         
-        new Thread() {
+        thServidor = new Thread(){
             @Override
             public void run() {
                 String userInput;
@@ -41,8 +43,8 @@ public class Servidor {
                     Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }.start();
-        
+        };
+        thServidor.start();
     }
     public void enviar(String apelido, String msg, FrameServidor frame){
         String serverInput;
@@ -53,7 +55,4 @@ public class Servidor {
         }
     }
     
-    public void parar(){
-        
-    }
 }
